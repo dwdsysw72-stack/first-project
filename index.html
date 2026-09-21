@@ -1,0 +1,970 @@
+<!--
+  NOIR — Luxury Barbershop Landing Page
+  Built with the ui-ux-pro-max skill design system:
+    Style:      Premium dark + gold ("Luxury / High-End" profile)
+    Colors:     Primary #1C1917 · Accent #A16207 · On-Primary/Accent #FFFFFF
+    Typography: Frank Ruhl Libre (display serif) + Assistant (body sans) — Hebrew-ready
+                pairing carrying the same luxury mood as the skill's Cormorant/Montserrat pick.
+
+  BEFORE GOING LIVE — replace these placeholders:
+    - Phone / WhatsApp number:  972501234567
+    - Email:                    hello@noir-barber.co.il
+    - Address + map query:      "רוטשילד 12, תל אביב"
+    - Instagram / Facebook URLs
+-->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('js');</script>
+<title>NOIR | מספרת יוקרה לגבר המודרני</title>
+<meta name="description" content="NOIR — מספרת בוטיק יוקרתית לגבר המודרני. תספורות עיצוב, טיפוח זקן וגילוח קלאסי בסכין, בידי אומני ברבר מוסמכים.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230C0A09'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23A16207' font-family='Georgia,serif'%3EN%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;600;700;900&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Precompiled, purged Tailwind build (see .build/) — no runtime CDN dependency -->
+<link rel="stylesheet" href="assets/styles.css">
+
+<style>
+  :root { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    :root { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+
+  body {
+    background-color: #0C0A09;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(161,98,7,0.16), transparent),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(90deg, #D9B25B 0%, #EFCE81 35%, #A16207 70%, #D9B25B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .divider-gold {
+    width: 64px; height: 2px;
+    background: linear-gradient(90deg, transparent, #A16207, transparent);
+  }
+
+  /* Reveal-on-scroll only activates once JS confirms it can run the observer (see early head script). Without JS, content is visible by default — never hidden. */
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js .reveal.is-visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; } }
+
+  .card-hover { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+  .card-hover:hover { transform: translateY(-6px); border-color: rgba(161,98,7,0.55); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.6), 0 8px 30px -8px rgba(161,98,7,0.35); }
+
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ''; position: absolute; right: 0; bottom: -6px; width: 0; height: 1.5px;
+    background: #D9B25B; transition: width 0.25s ease;
+  }
+  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+  ::selection { background: #A16207; color: #0C0A09; }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #0C0A09; }
+  ::-webkit-scrollbar-thumb { background: #3B332D; border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #A16207; }
+
+  input:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visible, button:focus-visible {
+    outline: 2px solid #D9B25B; outline-offset: 3px;
+  }
+
+  .mosaic-tile { position: relative; overflow: hidden; }
+  .mosaic-tile::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(160deg, rgba(161,98,7,0.28), rgba(12,10,9,0.05) 55%, rgba(12,10,9,0.65));
+  }
+
+  .btn-shine { position: relative; overflow: hidden; }
+  .btn-shine::after {
+    content: ''; position: absolute; inset: 0; translate: -130% 0;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+    transition: translate 0.6s ease;
+  }
+  .btn-shine:hover::after { translate: 130% 0; }
+</style>
+</head>
+
+<body class="bg-ink text-ivory font-sans antialiased">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-3 focus:z-[100] focus:bg-gold focus:text-ink focus:px-4 focus:py-2 focus:rounded-md focus:font-semibold">
+  דלג לתוכן הראשי
+</a>
+
+<!-- ============ NAV ============ -->
+<header id="siteHeader" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-transparent">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20 transition-all duration-300" id="navInner">
+    <a href="#hero" class="flex items-center gap-3 group cursor-pointer" aria-label="NOIR — לעמוד הבית">
+      <span class="w-10 h-10 rounded-full border border-gold/60 flex items-center justify-center font-serif text-gold-bright text-lg group-hover:bg-gold group-hover:text-ink transition-colors duration-300">N</span>
+      <span class="font-serif text-xl tracking-wide text-ivory">NOIR<span class="text-gold-light"> .</span></span>
+    </a>
+
+    <ul class="hidden lg:flex items-center gap-10 font-sans text-[15px] text-muted">
+      <li><a href="#hero" class="nav-link active hover:text-ivory transition-colors duration-200">בית</a></li>
+      <li><a href="#services" class="nav-link hover:text-ivory transition-colors duration-200">שירותים</a></li>
+      <li><a href="#team" class="nav-link hover:text-ivory transition-colors duration-200">הצוות</a></li>
+      <li><a href="#gallery" class="nav-link hover:text-ivory transition-colors duration-200">גלריה</a></li>
+      <li><a href="#testimonials" class="nav-link hover:text-ivory transition-colors duration-200">לקוחות ממליצים</a></li>
+      <li><a href="#contact" class="nav-link hover:text-ivory transition-colors duration-200">צור קשר</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <a href="#booking" class="hidden sm:inline-flex btn-shine items-center gap-2 bg-gold hover:bg-gold-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-gold transition-colors duration-200 cursor-pointer">
+        קביעת תור
+      </a>
+      <button id="menuToggle" aria-label="פתיחת תפריט ניווט" aria-expanded="false" aria-controls="mobileMenu" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-hair text-ivory hover:border-gold transition-colors duration-200 cursor-pointer">
+        <svg id="iconMenu" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
+        <svg id="iconClose" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobileMenu" class="lg:hidden hidden bg-ink border-t border-hair">
+    <ul class="flex flex-col px-5 py-4 gap-1 font-sans text-[15px]">
+      <li><a href="#hero" class="block py-3 text-muted hover:text-gold-bright transition-colors">בית</a></li>
+      <li><a href="#services" class="block py-3 text-muted hover:text-gold-bright transition-colors">שירותים</a></li>
+      <li><a href="#team" class="block py-3 text-muted hover:text-gold-bright transition-colors">הצוות</a></li>
+      <li><a href="#gallery" class="block py-3 text-muted hover:text-gold-bright transition-colors">גלריה</a></li>
+      <li><a href="#testimonials" class="block py-3 text-muted hover:text-gold-bright transition-colors">לקוחות ממליצים</a></li>
+      <li><a href="#contact" class="block py-3 text-muted hover:text-gold-bright transition-colors">צור קשר</a></li>
+      <li class="pt-2"><a href="#booking" class="block text-center bg-gold text-white font-semibold py-3 rounded-full">קביעת תור</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="relative min-h-[100svh] flex items-center overflow-hidden pt-20">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute -top-40 -left-40 w-[36rem] h-[36rem] rounded-full bg-gold/10 blur-[110px]"></div>
+    <div class="absolute -bottom-40 -right-20 w-[30rem] h-[30rem] rounded-full bg-gold-dark/20 blur-[110px]"></div>
+    <svg class="absolute inset-0 w-full h-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+          <path d="M64 0H0V64" fill="none" stroke="#D9B25B" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)"/>
+    </svg>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 w-full grid lg:grid-cols-12 gap-12 items-center py-16">
+    <div class="lg:col-span-7 reveal">
+      <div class="inline-flex items-center gap-2 border border-hair rounded-full px-4 py-1.5 mb-7 text-xs tracking-widest text-gold-light font-semibold">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+        <span>מספרת בוטיק · מאז 2012</span>
+      </div>
+
+      <h1 class="font-serif leading-[1.08] text-5xl sm:text-6xl xl:text-7xl text-ivory">
+        האומנות<br>
+        שמאחורי<br>
+        <span class="text-gradient-gold">כל תספורת.</span>
+      </h1>
+
+      <p class="mt-7 text-lg text-muted max-w-xl leading-relaxed">
+        NOIR היא מספרת יוקרה לגבר המודרני — שילוב של דיוק אומנותי, חומרי גלם פרימיום
+        ואווירה שמזמינה אתכם לשבת, להירגע וליהנות מהתהליך. לא רק תספורת — חוויה.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="#booking" class="btn-shine inline-flex items-center gap-2 bg-gold hover:bg-gold-dark text-white font-semibold px-8 py-4 rounded-full shadow-gold transition-colors duration-200 cursor-pointer">
+          קביעת תור עכשיו
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7 7-7M3 12h18"/></svg>
+        </a>
+        <a href="#services" class="inline-flex items-center gap-2 border border-hair hover:border-gold-light text-ivory font-semibold px-8 py-4 rounded-full transition-colors duration-200 cursor-pointer">
+          לצפייה בשירותים
+        </a>
+      </div>
+
+      <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 text-sm text-muted">
+        <div class="flex items-center gap-2">
+          <div class="flex text-gold-bright" aria-hidden="true">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          </div>
+          <span><strong class="text-ivory">4.9</strong> · 320+ ביקורות</span>
+        </div>
+        <div class="w-px h-5 bg-hair hidden sm:block"></div>
+        <span>ברברים מוסמכים בלבד</span>
+        <div class="w-px h-5 bg-hair hidden sm:block"></div>
+        <span>חניה חופשית בסמוך</span>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 reveal" style="transition-delay:120ms">
+      <div class="relative rounded-3xl border border-hair bg-gradient-to-b from-card to-surface p-8 sm:p-10 shadow-2xl">
+        <div class="absolute -top-5 -left-5 w-20 h-20 rounded-2xl bg-gold/15 border border-gold/30 backdrop-blur flex items-center justify-center">
+          <svg class="w-9 h-9 text-gold-bright" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/>
+            <path stroke-linecap="round" d="M20 6 8.5 12M8.5 12 20 18M4 12h.01"/>
+          </svg>
+        </div>
+
+        <p class="font-serif text-2xl text-ivory leading-snug">"מספרה שמבינה<br>שהפרטים הקטנים<br>עושים את ההבדל."</p>
+        <div class="divider-gold my-6"></div>
+
+        <dl class="grid grid-cols-2 gap-6">
+          <div>
+            <dt class="text-xs text-muted tracking-wide">שנות ניסיון</dt>
+            <dd class="font-serif text-3xl text-gold-bright mt-1"><span data-counter="12">0</span>+</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted tracking-wide">לקוחות מרוצים</dt>
+            <dd class="font-serif text-3xl text-gold-bright mt-1"><span data-counter="15000">0</span>+</dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted tracking-wide">ברברים מומחים</dt>
+            <dd class="font-serif text-3xl text-gold-bright mt-1"><span data-counter="6">0</span></dd>
+          </div>
+          <div>
+            <dt class="text-xs text-muted tracking-wide">דירוג ממוצע</dt>
+            <dd class="font-serif text-3xl text-gold-bright mt-1">4.9</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <a href="#services" aria-label="גלול למטה" class="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-muted hover:text-gold-light transition-colors cursor-pointer">
+    <span class="text-xs tracking-widest">גלילה</span>
+    <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7M12 21V3"/></svg>
+  </a>
+</section>
+
+<!-- ============ LOGO / TRUST STRIP ============ -->
+<section class="border-y border-hair bg-surface/60">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-wrap items-center justify-center gap-x-12 gap-y-3 text-muted text-sm tracking-wide">
+    <span>מוצרי טיפוח פרימיום</span>
+    <span class="w-1 h-1 rounded-full bg-hair"></span>
+    <span>מגזיני סטייל מובילים המליצו עלינו</span>
+    <span class="w-1 h-1 rounded-full bg-hair"></span>
+    <span>הדרכה מקצועית שוטפת לצוות</span>
+    <span class="w-1 h-1 rounded-full bg-hair"></span>
+    <span>ציוד גילוח סטרייט־רייזר קלאסי</span>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-12 gap-16 items-center">
+
+    <div class="lg:col-span-5 reveal order-2 lg:order-1">
+      <div class="relative aspect-[4/5] rounded-3xl overflow-hidden border border-hair bg-gradient-to-br from-stone via-card to-ink">
+        <div class="absolute inset-0 opacity-40" style="background-image:repeating-linear-gradient(135deg, rgba(217,178,91,0.12) 0 2px, transparent 2px 14px)"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg class="w-40 h-40 text-gold/70" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
+            <rect x="4" y="2" width="2" height="20" rx="1" fill="currentColor" stroke="none"/>
+            <rect x="18" y="2" width="2" height="20" rx="1" fill="currentColor" stroke="none"/>
+            <path d="M6 4c4 2 8-2 12 0M6 8c4 2 8-2 12 0M6 12c4 2 8-2 12 0M6 16c4 2 8-2 12 0M6 20c4 2 8-2 12 0" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="absolute bottom-6 right-6 left-6 rounded-2xl bg-ink/70 backdrop-blur border border-hair px-5 py-4">
+          <p class="text-sm text-muted">סטודיו פתוח יום־יום</p>
+          <p class="font-serif text-lg text-ivory mt-0.5">09:00 – 21:00</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7 reveal order-1 lg:order-2">
+      <p class="text-gold-light tracking-widest text-sm font-semibold mb-3">הסיפור שלנו</p>
+      <h2 class="font-serif text-4xl sm:text-5xl text-ivory leading-tight">
+        לא עוד מספרה —<br>מקום שבו אתם <span class="text-gradient-gold">נראים ומרגישים אחרת</span>
+      </h2>
+      <p class="mt-6 text-muted leading-relaxed text-lg">
+        NOIR נולדה מתוך אמונה אחת פשוטה: תספורת טובה היא לא רק עניין של מספריים,
+        אלא של תשומת לב, זמן ומקצועיות. הצוות שלנו עבר הכשרה בטכניקות קלאסיות
+        ומודרניות כאחד, כדי להתאים בדיוק לצורת הפנים, מרקם השיער והאופי שלכם.
+      </p>
+
+      <ul class="mt-8 grid sm:grid-cols-2 gap-4">
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-6 h-6 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center shrink-0">
+            <svg class="w-3.5 h-3.5 text-gold-bright" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </span>
+          <span class="text-ivory/90 text-sm">ייעוץ אישי לפני כל טיפול</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-6 h-6 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center shrink-0">
+            <svg class="w-3.5 h-3.5 text-gold-bright" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </span>
+          <span class="text-ivory/90 text-sm">חומרי טיפוח פרימיום בלבד</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-6 h-6 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center shrink-0">
+            <svg class="w-3.5 h-3.5 text-gold-bright" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </span>
+          <span class="text-ivory/90 text-sm">כלי עבודה מחוטאים ומקצועיים</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-0.5 w-6 h-6 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center shrink-0">
+            <svg class="w-3.5 h-3.5 text-gold-bright" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </span>
+          <span class="text-ivory/90 text-sm">אווירת בוטיק, לא מספרה המונית</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="py-24 sm:py-32 bg-surface border-y border-hair">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="text-gold-light tracking-widest text-sm font-semibold mb-3">השירותים שלנו</p>
+      <h2 class="font-serif text-4xl sm:text-5xl text-ivory">טיפוח בדיוק כירורגי</h2>
+      <p class="mt-4 text-muted text-lg">כל שירות מותאם אישית — מהייעוץ ועד לתוצאה הסופית.</p>
+    </div>
+
+    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="reveal card-hover group bg-card border border-hair rounded-2xl p-8">
+        <div class="w-14 h-14 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold group-hover:border-gold transition-colors duration-300">
+          <svg class="w-7 h-7 text-gold-bright group-hover:text-ink transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+            <circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path stroke-linecap="round" d="M20 6 8.5 12M8.5 12 20 18"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-ivory">תספורת קלאסית</h3>
+        <p class="mt-3 text-muted text-sm leading-relaxed">גזירה מדויקת בעזרת מספריים ומכונה, כולל עיצוב וסיום עם מוצרי סטיילינג.</p>
+        <div class="mt-6 flex items-center justify-between">
+          <span class="font-serif text-2xl text-gold-bright">₪120</span>
+          <a href="#booking" class="text-sm font-semibold text-ivory/80 hover:text-gold-light transition-colors cursor-pointer">הזמנה ←</a>
+        </div>
+      </div>
+
+      <div class="reveal card-hover group bg-card border border-hair rounded-2xl p-8" style="transition-delay:60ms">
+        <div class="w-14 h-14 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold group-hover:border-gold transition-colors duration-300">
+          <svg class="w-7 h-7 text-gold-bright group-hover:text-ink transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-3.5 0-6 3-6 7 0 5 2.5 8 3.5 9.5.4.6 1.2.6 1.6 0C12.1 18 14.6 15 14.6 10c0-2.5-1-4.5-2.6-5.5"/>
+            <path stroke-linecap="round" d="M9 9c1 1.5 3 1.5 4 0"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-ivory">עיצוב זקן מקצועי</h3>
+        <p class="mt-3 text-muted text-sm leading-relaxed">קו עיצוב חד, החלקה וטיפוח עם שמנים ובלמים ייעודיים לזקן.</p>
+        <div class="mt-6 flex items-center justify-between">
+          <span class="font-serif text-2xl text-gold-bright">₪80</span>
+          <a href="#booking" class="text-sm font-semibold text-ivory/80 hover:text-gold-light transition-colors cursor-pointer">הזמנה ←</a>
+        </div>
+      </div>
+
+      <div class="reveal card-hover group bg-card border border-hair rounded-2xl p-8" style="transition-delay:120ms">
+        <div class="w-14 h-14 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold group-hover:border-gold transition-colors duration-300">
+          <svg class="w-7 h-7 text-gold-bright group-hover:text-ink transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4l7 7M4 20l16-16M13 11l7 7-2 2-7-7M6 16l-2 2 2 2 2-2"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-ivory">גילוח קלאסי בסכין</h3>
+        <p class="mt-3 text-muted text-sm leading-relaxed">טקס גילוח מסורתי עם מגבת חמה, קצף חם וסכין ישנה — פינוק אמיתי.</p>
+        <div class="mt-6 flex items-center justify-between">
+          <span class="font-serif text-2xl text-gold-bright">₪90</span>
+          <a href="#booking" class="text-sm font-semibold text-ivory/80 hover:text-gold-light transition-colors cursor-pointer">הזמנה ←</a>
+        </div>
+      </div>
+
+      <div class="reveal card-hover group bg-card border border-hair rounded-2xl p-8">
+        <div class="w-14 h-14 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold group-hover:border-gold transition-colors duration-300">
+          <svg class="w-7 h-7 text-gold-bright group-hover:text-ink transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 3v18M3 12h18" stroke-width="1"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-ivory">צביעה וטיפוח שיער</h3>
+        <p class="mt-3 text-muted text-sm leading-relaxed">כיסוי שיער לבן וגוונים טבעיים בשיטות עדינות לקרקפת.</p>
+        <div class="mt-6 flex items-center justify-between">
+          <span class="font-serif text-2xl text-gold-bright">₪150</span>
+          <a href="#booking" class="text-sm font-semibold text-ivory/80 hover:text-gold-light transition-colors cursor-pointer">הזמנה ←</a>
+        </div>
+      </div>
+
+      <div class="reveal card-hover group bg-card border border-hair rounded-2xl p-8" style="transition-delay:60ms">
+        <div class="w-14 h-14 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold group-hover:border-gold transition-colors duration-300">
+          <svg class="w-7 h-7 text-gold-bright group-hover:text-ink transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 1116 0 8 8 0 01-16 0Z"/><path stroke-linecap="round" d="M9 12a3 3 0 106 0 3 3 0 00-6 0Z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-ivory">טיפוח פנים לגבר</h3>
+        <p class="mt-3 text-muted text-sm leading-relaxed">ניקוי עמוק, מסכת פחם ועיסוי פנים לרענון וחיוניות העור.</p>
+        <div class="mt-6 flex items-center justify-between">
+          <span class="font-serif text-2xl text-gold-bright">₪110</span>
+          <a href="#booking" class="text-sm font-semibold text-ivory/80 hover:text-gold-light transition-colors cursor-pointer">הזמנה ←</a>
+        </div>
+      </div>
+
+      <div class="reveal card-hover group relative bg-gradient-to-b from-gold-dark/25 to-card border border-gold/50 rounded-2xl p-8" style="transition-delay:120ms">
+        <span class="absolute -top-3 right-8 bg-gold text-ink text-xs font-bold px-3 py-1 rounded-full">הכי פופולרי</span>
+        <div class="w-14 h-14 rounded-xl bg-gold/20 border border-gold/50 flex items-center justify-center mb-6">
+          <svg class="w-7 h-7 text-gold-bright" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2 14.5 8.5 21 9.5 16.3 14 17.6 20.5 12 17.3 6.4 20.5 7.7 14 3 9.5 9.5 8.5 12 2Z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-ivory">חבילת VIP מלאה</h3>
+        <p class="mt-3 text-muted text-sm leading-relaxed">תספורת + עיצוב זקן + גילוח בסכין + טיפוח פנים + משקה על הבית.</p>
+        <div class="mt-6 flex items-center justify-between">
+          <span class="font-serif text-2xl text-gold-bright">₪280</span>
+          <a href="#booking" class="text-sm font-semibold text-gold-light hover:text-gold-bright transition-colors cursor-pointer">הזמנה ←</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="text-gold-light tracking-widest text-sm font-semibold mb-3">איך זה עובד</p>
+      <h2 class="font-serif text-4xl sm:text-5xl text-ivory">מהכניסה ועד היציאה</h2>
+    </div>
+
+    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10 relative">
+      <div class="hidden lg:block absolute top-8 right-[12%] left-[12%] h-px bg-gradient-to-l from-transparent via-hair to-transparent"></div>
+
+      <div class="reveal text-center relative">
+        <div class="w-16 h-16 mx-auto rounded-full bg-card border border-gold/40 flex items-center justify-center font-serif text-2xl text-gold-bright relative z-10">01</div>
+        <h3 class="font-serif text-lg text-ivory mt-5">קביעת תור</h3>
+        <p class="text-muted text-sm mt-2 leading-relaxed">אונליין, בטלפון או בוואטסאפ — תוך פחות מדקה.</p>
+      </div>
+      <div class="reveal text-center relative" style="transition-delay:60ms">
+        <div class="w-16 h-16 mx-auto rounded-full bg-card border border-gold/40 flex items-center justify-center font-serif text-2xl text-gold-bright relative z-10">02</div>
+        <h3 class="font-serif text-lg text-ivory mt-5">קבלת פנים</h3>
+        <p class="text-muted text-sm mt-2 leading-relaxed">משקה על הבית ושיחת ייעוץ קצרה על הלוק הרצוי.</p>
+      </div>
+      <div class="reveal text-center relative" style="transition-delay:120ms">
+        <div class="w-16 h-16 mx-auto rounded-full bg-card border border-gold/40 flex items-center justify-center font-serif text-2xl text-gold-bright relative z-10">03</div>
+        <h3 class="font-serif text-lg text-ivory mt-5">הטיפול המקצועי</h3>
+        <p class="text-muted text-sm mt-2 leading-relaxed">דיוק, סבלנות ותשומת לב לכל פרט קטן.</p>
+      </div>
+      <div class="reveal text-center relative" style="transition-delay:180ms">
+        <div class="w-16 h-16 mx-auto rounded-full bg-card border border-gold/40 flex items-center justify-center font-serif text-2xl text-gold-bright relative z-10">04</div>
+        <h3 class="font-serif text-lg text-ivory mt-5">הופעה מנצחת</h3>
+        <p class="text-muted text-sm mt-2 leading-relaxed">אתם יוצאים בביטחון מלא — ותמיד מוזמנים לחזור.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" class="py-24 sm:py-32 bg-surface border-y border-hair">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="text-gold-light tracking-widest text-sm font-semibold mb-3">אווירה בסלון</p>
+      <h2 class="font-serif text-4xl sm:text-5xl text-ivory">הסטודיו שלנו</h2>
+    </div>
+
+    <div class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div class="reveal mosaic-tile rounded-2xl border border-hair bg-gradient-to-br from-stone to-ink aspect-square flex items-end p-5 col-span-2 row-span-2">
+        <div class="relative z-10">
+          <svg class="w-10 h-10 text-gold-bright mb-3" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10"/></svg>
+          <p class="font-serif text-xl text-ivory">עמדות עבודה פרטיות</p>
+        </div>
+      </div>
+      <div class="reveal mosaic-tile rounded-2xl border border-hair bg-gradient-to-br from-card to-stone aspect-square flex items-end p-5" style="transition-delay:60ms">
+        <div class="relative z-10">
+          <svg class="w-8 h-8 text-gold-bright mb-2" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 1116 0 8 8 0 01-16 0Z"/></svg>
+          <p class="font-serif text-sm text-ivory">פינת המתנה</p>
+        </div>
+      </div>
+      <div class="reveal mosaic-tile rounded-2xl border border-hair bg-gradient-to-br from-stone to-card aspect-square flex items-end p-5" style="transition-delay:120ms">
+        <div class="relative z-10">
+          <svg class="w-8 h-8 text-gold-bright mb-2" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2 14.5 8.5 21 9.5 16.3 14 17.6 20.5 12 17.3 6.4 20.5 7.7 14 3 9.5 9.5 8.5 12 2Z"/></svg>
+          <p class="font-serif text-sm text-ivory">מוצרי פרימיום</p>
+        </div>
+      </div>
+      <div class="reveal mosaic-tile rounded-2xl border border-hair bg-gradient-to-br from-card to-ink aspect-square flex items-end p-5" style="transition-delay:180ms">
+        <div class="relative z-10">
+          <svg class="w-8 h-8 text-gold-bright mb-2" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path stroke-linecap="round" d="M20 6 8.5 12M8.5 12 20 18"/></svg>
+          <p class="font-serif text-sm text-ivory">כלי עבודה</p>
+        </div>
+      </div>
+      <div class="reveal mosaic-tile rounded-2xl border border-hair bg-gradient-to-br from-ink to-stone aspect-square flex items-end p-5" style="transition-delay:240ms">
+        <div class="relative z-10">
+          <svg class="w-8 h-8 text-gold-bright mb-2" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4l7 7M4 20l16-16M13 11l7 7-2 2-7-7"/></svg>
+          <p class="font-serif text-sm text-ivory">פינת הגילוח</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section id="team" class="py-24 sm:py-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="text-gold-light tracking-widest text-sm font-semibold mb-3">הצוות שלנו</p>
+      <h2 class="font-serif text-4xl sm:text-5xl text-ivory">אומני הברבר של NOIR</h2>
+    </div>
+
+    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="reveal card-hover bg-card border border-hair rounded-2xl p-7 text-center">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gold-light to-gold-dark p-[2px]">
+          <div class="w-full h-full rounded-full bg-card flex items-center justify-center font-serif text-2xl text-gold-bright">אב</div>
+        </div>
+        <h3 class="font-serif text-lg text-ivory mt-5">אבי כהן</h3>
+        <p class="text-gold-light text-xs mt-1 tracking-wide">מייסד וברבר ראשי</p>
+        <p class="text-muted text-sm mt-3 leading-relaxed">15 שנות ניסיון · מומחה בעיצוב זקן וגילוח קלאסי</p>
+      </div>
+      <div class="reveal card-hover bg-card border border-hair rounded-2xl p-7 text-center" style="transition-delay:60ms">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gold-light to-gold-dark p-[2px]">
+          <div class="w-full h-full rounded-full bg-card flex items-center justify-center font-serif text-2xl text-gold-bright">רן</div>
+        </div>
+        <h3 class="font-serif text-lg text-ivory mt-5">רן לוי</h3>
+        <p class="text-gold-light text-xs mt-1 tracking-wide">סטייליסט בכיר</p>
+        <p class="text-muted text-sm mt-3 leading-relaxed">מתמחה בתספורות פייד ועיצוב עדכני</p>
+      </div>
+      <div class="reveal card-hover bg-card border border-hair rounded-2xl p-7 text-center" style="transition-delay:120ms">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gold-light to-gold-dark p-[2px]">
+          <div class="w-full h-full rounded-full bg-card flex items-center justify-center font-serif text-2xl text-gold-bright">עדי</div>
+        </div>
+        <h3 class="font-serif text-lg text-ivory mt-5">עדי מזרחי</h3>
+        <p class="text-gold-light text-xs mt-1 tracking-wide">מומחית צבע וטיפוח</p>
+        <p class="text-muted text-sm mt-3 leading-relaxed">התמחות בכיסוי שיער לבן וגוונים טבעיים</p>
+      </div>
+      <div class="reveal card-hover bg-card border border-hair rounded-2xl p-7 text-center" style="transition-delay:180ms">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gold-light to-gold-dark p-[2px]">
+          <div class="w-full h-full rounded-full bg-card flex items-center justify-center font-serif text-2xl text-gold-bright">תום</div>
+        </div>
+        <h3 class="font-serif text-lg text-ivory mt-5">תום שגיא</h3>
+        <p class="text-gold-light text-xs mt-1 tracking-wide">ברבר וטיפוח פנים</p>
+        <p class="text-muted text-sm mt-3 leading-relaxed">מומחה בטיפולי פנים וגילוח בסכין ישנה</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="testimonials" class="py-24 sm:py-32 bg-surface border-y border-hair">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <p class="text-gold-light tracking-widest text-sm font-semibold mb-3">לקוחות ממליצים</p>
+      <h2 class="font-serif text-4xl sm:text-5xl text-ivory">מה אומרים עלינו</h2>
+    </div>
+
+    <div class="mt-16 grid lg:grid-cols-3 gap-6">
+      <blockquote class="reveal bg-card border border-hair rounded-2xl p-8">
+        <div class="flex text-gold-bright gap-1 mb-5" aria-hidden="true">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+        </div>
+        <p class="text-ivory/90 leading-relaxed">"האווירה, השירות, התוצאה — הכול ברמה אחרת. הגילוח בסכין הוא חוויה שחובה לנסות."</p>
+        <footer class="mt-6 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center font-serif text-gold-bright text-sm">מ.ג</div>
+          <div>
+            <p class="text-ivory text-sm font-semibold">מיכאל גרוס</p>
+            <p class="text-muted text-xs">לקוח קבוע · שנתיים</p>
+          </div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="reveal bg-card border border-hair rounded-2xl p-8" style="transition-delay:60ms">
+        <div class="flex text-gold-bright gap-1 mb-5" aria-hidden="true">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+        </div>
+        <p class="text-ivory/90 leading-relaxed">"סוף סוף מקום שמבין תספורות פייד נכון. קבעתי תור קבוע כל שלושה שבועות."</p>
+        <footer class="mt-6 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center font-serif text-gold-bright text-sm">ד.כ</div>
+          <div>
+            <p class="text-ivory text-sm font-semibold">דניאל כרמי</p>
+            <p class="text-muted text-xs">לקוח קבוע · שנה</p>
+          </div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="reveal bg-card border border-hair rounded-2xl p-8" style="transition-delay:120ms">
+        <div class="flex text-gold-bright gap-1 mb-5" aria-hidden="true">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1.5 12.35 7l6.15.5-4.7 3.9 1.5 6-5.3-3.4L4.7 17.4l1.5-6L1.5 7.5 7.65 7 10 1.5Z"/></svg>
+        </div>
+        <p class="text-ivory/90 leading-relaxed">"חבילת ה-VIP שווה כל שקל. יצאתי מרגיש כמו בנאדם חדש לגמרי."</p>
+        <footer class="mt-6 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center font-serif text-gold-bright text-sm">ע.ש</div>
+          <div>
+            <p class="text-ivory text-sm font-semibold">עומר שני</p>
+            <p class="text-muted text-xs">לקוח חדש</p>
+          </div>
+        </footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="py-20">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="reveal relative overflow-hidden rounded-3xl bg-gradient-to-l from-gold-dark via-gold to-gold-dark px-8 py-14 sm:px-16 sm:py-16 text-center">
+      <svg class="absolute -top-10 -right-10 w-56 h-56 opacity-20" fill="none" stroke="#0C0A09" stroke-width="1" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/></svg>
+      <h2 class="relative font-serif text-3xl sm:text-4xl text-ink">מוכנים לשדרג את הלוק שלכם?</h2>
+      <p class="relative mt-3 text-ink/80 max-w-lg mx-auto">קבעו תור עוד היום וקבלו 10% הנחה על הטיפול הראשון שלכם ב-NOIR.</p>
+      <div class="relative mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="#booking" class="btn-shine bg-ink text-ivory font-semibold px-8 py-4 rounded-full shadow-lg hover:bg-ink/90 transition-colors duration-200 cursor-pointer">
+          קביעת תור אונליין
+        </a>
+        <a href="https://wa.me/972501234567?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%91-NOIR" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border-2 border-ink text-ink font-semibold px-8 py-4 rounded-full hover:bg-ink hover:text-ivory transition-colors duration-200 cursor-pointer">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.5 0-10 4.5-10 10 0 1.77.46 3.45 1.33 4.94L2 22l5.2-1.36A9.94 9.94 0 0012.04 22c5.5 0 10-4.5 10-10s-4.5-10-10-10Zm5.78 14.2c-.24.68-1.4 1.3-1.93 1.36-.49.06-1.1.09-1.78-.11-.41-.12-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.55-1.16-2.95s.73-2.09 1-2.38c.26-.28.57-.35.76-.35h.55c.18 0 .42-.03.65.5.24.55.81 1.94.88 2.08.07.14.12.3.02.49-.09.19-.14.3-.28.46-.14.16-.29.35-.42.47-.14.14-.28.28-.12.55.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.86-1.07.18-.28.36-.23.6-.14.24.09 1.53.72 1.8.85.26.14.44.2.5.32.06.12.06.68-.18 1.36Z"/></svg>
+          וואטסאפ
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING + CONTACT ============ -->
+<section id="booking" class="py-4 pb-24 sm:pb-32">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-12 gap-10">
+
+    <!-- Form -->
+    <div id="contact" class="lg:col-span-7 reveal bg-card border border-hair rounded-3xl p-8 sm:p-10">
+      <p class="text-gold-light tracking-widest text-sm font-semibold mb-3">קביעת תור</p>
+      <h2 class="font-serif text-3xl sm:text-4xl text-ivory">נשמח לראות אתכם</h2>
+      <p class="mt-3 text-muted">מלאו פרטים ונחזור אליכם לאישור תוך זמן קצר — או פשוט התקשרו.</p>
+
+      <form id="bookingForm" class="mt-8 grid sm:grid-cols-2 gap-5" novalidate>
+        <div class="sm:col-span-1">
+          <label for="fullName" class="block text-sm text-ivory/90 mb-2">שם מלא <span class="text-gold-light">*</span></label>
+          <input type="text" id="fullName" name="fullName" required
+            class="w-full bg-surface border border-hair rounded-xl px-4 py-3 text-ivory placeholder:text-muted/60 focus:border-gold transition-colors duration-200"
+            placeholder="ישראל ישראלי">
+          <p class="field-error hidden text-red-400 text-xs mt-1.5" role="alert"></p>
+        </div>
+
+        <div class="sm:col-span-1">
+          <label for="phone" class="block text-sm text-ivory/90 mb-2">טלפון <span class="text-gold-light">*</span></label>
+          <input type="tel" id="phone" name="phone" required inputmode="tel"
+            class="w-full bg-surface border border-hair rounded-xl px-4 py-3 text-ivory placeholder:text-muted/60 focus:border-gold transition-colors duration-200"
+            placeholder="050-1234567">
+          <p class="field-error hidden text-red-400 text-xs mt-1.5" role="alert"></p>
+        </div>
+
+        <div class="sm:col-span-1">
+          <label for="service" class="block text-sm text-ivory/90 mb-2">סוג טיפול <span class="text-gold-light">*</span></label>
+          <select id="service" name="service" required
+            class="w-full bg-surface border border-hair rounded-xl px-4 py-3 text-ivory focus:border-gold transition-colors duration-200 cursor-pointer">
+            <option value="" disabled selected>בחרו טיפול</option>
+            <option>תספורת קלאסית — ₪120</option>
+            <option>עיצוב זקן מקצועי — ₪80</option>
+            <option>גילוח קלאסי בסכין — ₪90</option>
+            <option>צביעה וטיפוח שיער — ₪150</option>
+            <option>טיפוח פנים לגבר — ₪110</option>
+            <option>חבילת VIP מלאה — ₪280</option>
+          </select>
+          <p class="field-error hidden text-red-400 text-xs mt-1.5" role="alert"></p>
+        </div>
+
+        <div class="sm:col-span-1">
+          <label for="date" class="block text-sm text-ivory/90 mb-2">תאריך מועדף <span class="text-gold-light">*</span></label>
+          <input type="date" id="date" name="date" required
+            class="w-full bg-surface border border-hair rounded-xl px-4 py-3 text-ivory focus:border-gold transition-colors duration-200 cursor-pointer">
+          <p class="field-error hidden text-red-400 text-xs mt-1.5" role="alert"></p>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="message" class="block text-sm text-ivory/90 mb-2">הערות נוספות</label>
+          <textarea id="message" name="message" rows="3"
+            class="w-full bg-surface border border-hair rounded-xl px-4 py-3 text-ivory placeholder:text-muted/60 focus:border-gold transition-colors duration-200 resize-none"
+            placeholder="ברבר מועדף, שעה מועדפת וכו׳"></textarea>
+        </div>
+
+        <div class="sm:col-span-2 flex items-center justify-between flex-wrap gap-4">
+          <p id="formStatus" class="text-sm text-muted" role="status" aria-live="polite"></p>
+          <button type="submit" id="submitBtn"
+            class="btn-shine inline-flex items-center gap-2 bg-gold hover:bg-gold-dark disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold px-8 py-4 rounded-full shadow-gold transition-colors duration-200 cursor-pointer">
+            <span id="submitLabel">שליחת בקשה לתור</span>
+            <svg id="submitSpinner" class="hidden w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Info panel -->
+    <div class="lg:col-span-5 reveal flex flex-col gap-6" style="transition-delay:100ms">
+
+      <div class="bg-card border border-hair rounded-3xl p-8">
+        <h3 class="font-serif text-xl text-ivory mb-5">פרטי התקשרות</h3>
+        <ul class="space-y-4 text-sm">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-gold-bright shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span class="text-ivory/90">רוטשילד 12, תל אביב</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-gold-bright shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5.5A2.5 2.5 0 015.5 3h1.7c.5 0 .95.34 1.08.83l1 3.65a1.12 1.12 0 01-.32 1.13L7.4 10.1a12.5 12.5 0 006.5 6.5l1.5-1.56a1.12 1.12 0 011.13-.32l3.65 1c.49.13.83.58.83 1.08v1.7A2.5 2.5 0 0118.5 21C10 21 3 14 3 5.5Z"/></svg>
+            <a href="tel:+972501234567" class="text-ivory/90 hover:text-gold-light transition-colors cursor-pointer" dir="ltr">050-123-4567</a>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-gold-bright shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6.5 12 13l9-6.5M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1Z"/></svg>
+            <a href="mailto:hello@noir-barber.co.il" class="text-ivory/90 hover:text-gold-light transition-colors cursor-pointer">hello@noir-barber.co.il</a>
+          </li>
+        </ul>
+
+        <div class="divider-gold my-6"></div>
+
+        <h4 class="text-sm text-ivory mb-3">שעות פעילות</h4>
+        <ul class="space-y-2 text-sm text-muted">
+          <li class="flex justify-between"><span>ראשון – חמישי</span><span class="text-ivory/80">09:00 – 21:00</span></li>
+          <li class="flex justify-between"><span>שישי</span><span class="text-ivory/80">08:00 – 15:00</span></li>
+          <li class="flex justify-between"><span>שבת</span><span class="text-ivory/80">סגור</span></li>
+        </ul>
+
+        <div class="divider-gold my-6"></div>
+
+        <div class="flex items-center gap-3">
+          <a href="#" aria-label="עמוד האינסטגרם שלנו" class="w-10 h-10 rounded-full border border-hair flex items-center justify-center text-muted hover:text-gold-bright hover:border-gold transition-colors duration-200 cursor-pointer">
+            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+          </a>
+          <a href="#" aria-label="עמוד הפייסבוק שלנו" class="w-10 h-10 rounded-full border border-hair flex items-center justify-center text-muted hover:text-gold-bright hover:border-gold transition-colors duration-200 cursor-pointer">
+            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 8h-2a2 2 0 00-2 2v2H9v3h2v7h3v-7h2.2l.8-3H14v-1.5c0-.5.2-1 1-1h1.8V8Z"/></svg>
+          </a>
+          <a href="https://wa.me/972501234567" target="_blank" rel="noopener" aria-label="שלחו לנו הודעת וואטסאפ" class="w-10 h-10 rounded-full border border-hair flex items-center justify-center text-muted hover:text-gold-bright hover:border-gold transition-colors duration-200 cursor-pointer">
+            <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.5 0-10 4.5-10 10 0 1.77.46 3.45 1.33 4.94L2 22l5.2-1.36A9.94 9.94 0 0012.04 22c5.5 0 10-4.5 10-10s-4.5-10-10-10Z" opacity=".18"/><path d="M12.04 2c-5.5 0-10 4.5-10 10 0 1.77.46 3.45 1.33 4.94L2 22l5.2-1.36A9.94 9.94 0 0012.04 22c5.5 0 10-4.5 10-10s-4.5-10-10-10Zm5.78 14.2c-.24.68-1.4 1.3-1.93 1.36-.49.06-1.1.09-1.78-.11-.41-.12-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.55-1.16-2.95s.73-2.09 1-2.38c.26-.28.57-.35.76-.35h.55c.18 0 .42-.03.65.5.24.55.81 1.94.88 2.08.07.14.12.3.02.49-.09.19-.14.3-.28.46-.14.16-.29.35-.42.47-.14.14-.28.28-.12.55.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.86-1.07.18-.28.36-.23.6-.14.24.09 1.53.72 1.8.85.26.14.44.2.5.32.06.12.06.68-.18 1.36Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="rounded-3xl overflow-hidden border border-hair h-56">
+        <iframe
+          title="מפת המיקום שלנו"
+          class="w-full h-full grayscale-[40%] contrast-125"
+          style="border:0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=%D7%A8%D7%95%D7%98%D7%A9%D7%99%D7%9C%D7%93%2012%2C%20%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91&t=&z=15&ie=UTF8&iwloc=&output=embed">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-hair bg-surface">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <a href="#hero" class="flex items-center gap-3 mb-4 cursor-pointer">
+        <span class="w-9 h-9 rounded-full border border-gold/60 flex items-center justify-center font-serif text-gold-bright">N</span>
+        <span class="font-serif text-lg text-ivory">NOIR</span>
+      </a>
+      <p class="text-muted text-sm leading-relaxed">מספרת בוטיק לגבר המודרני — דיוק, אווירה ופינוק בכל ביקור.</p>
+    </div>
+
+    <div>
+      <h4 class="text-ivory text-sm font-semibold mb-4">ניווט מהיר</h4>
+      <ul class="space-y-2.5 text-sm text-muted">
+        <li><a href="#services" class="hover:text-gold-light transition-colors cursor-pointer">שירותים</a></li>
+        <li><a href="#team" class="hover:text-gold-light transition-colors cursor-pointer">הצוות</a></li>
+        <li><a href="#gallery" class="hover:text-gold-light transition-colors cursor-pointer">גלריה</a></li>
+        <li><a href="#booking" class="hover:text-gold-light transition-colors cursor-pointer">קביעת תור</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-ivory text-sm font-semibold mb-4">שעות פעילות</h4>
+      <ul class="space-y-2.5 text-sm text-muted">
+        <li class="flex justify-between gap-4"><span>א׳ – ה׳</span><span>09:00–21:00</span></li>
+        <li class="flex justify-between gap-4"><span>שישי</span><span>08:00–15:00</span></li>
+        <li class="flex justify-between gap-4"><span>שבת</span><span>סגור</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-ivory text-sm font-semibold mb-4">הישארו מעודכנים</h4>
+      <p class="text-muted text-sm mb-4">הצטרפו לרשימת התפוצה לקבלת מבצעים והטבות.</p>
+      <form class="flex gap-2" onsubmit="event.preventDefault(); this.reset(); this.querySelector('button').textContent='נרשמת! תודה 🙌'.replace('🙌','');">
+        <label for="newsletterEmail" class="sr-only">כתובת אימייל</label>
+        <input id="newsletterEmail" type="email" required placeholder="האימייל שלך"
+          class="min-w-0 flex-1 bg-card border border-hair rounded-full px-4 py-2.5 text-sm text-ivory placeholder:text-muted/60 focus:border-gold transition-colors duration-200">
+        <button type="submit" class="shrink-0 bg-gold hover:bg-gold-dark text-white text-sm font-semibold px-5 rounded-full transition-colors duration-200 cursor-pointer">הצטרפות</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="border-t border-hair">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted">
+      <p>© <span id="year"></span> NOIR Barbershop. כל הזכויות שמורות.</p>
+      <p>עוצב באהבה עבור גברים שאוהבים להיראות טוב.</p>
+    </div>
+  </div>
+</footer>
+
+<button id="backToTop" aria-label="חזרה לראש העמוד"
+  class="fixed bottom-6 left-6 z-40 w-12 h-12 rounded-full bg-gold text-white shadow-gold flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 cursor-pointer">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const iconMenu = document.getElementById('iconMenu');
+  const iconClose = document.getElementById('iconClose');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    iconMenu.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+    menuToggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+    iconMenu.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Header shrink on scroll
+  const header = document.getElementById('siteHeader');
+  const navInner = document.getElementById('navInner');
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 40;
+    header.classList.toggle('bg-ink/90', scrolled);
+    header.classList.toggle('backdrop-blur-md', scrolled);
+    header.classList.toggle('border-hair', scrolled);
+    navInner.classList.toggle('h-16', scrolled);
+    navInner.classList.toggle('h-20', !scrolled);
+
+    if (window.scrollY > 600) {
+      backToTop.classList.remove('opacity-0', 'pointer-events-none');
+    } else {
+      backToTop.classList.add('opacity-0', 'pointer-events-none');
+    }
+  });
+  backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Scroll reveal
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('.reveal');
+  if (reduceMotion) {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  }
+
+  // Animated stat counters
+  const counters = document.querySelectorAll('[data-counter]');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.getAttribute('data-counter'), 10);
+      if (reduceMotion) { el.textContent = target.toLocaleString('en-US'); counterIO.unobserve(el); return; }
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased).toLocaleString('en-US');
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterIO.observe(el));
+
+  // Scrollspy for nav active link
+  const sections = ['hero', 'services', 'team', 'gallery', 'testimonials', 'contact'].map(id => document.getElementById(id)).filter(Boolean);
+  const navLinks = document.querySelectorAll('.nav-link');
+  const spyIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4, rootMargin: '-80px 0px -60% 0px' });
+  sections.forEach(s => spyIO.observe(s));
+
+  // Booking form: labeled validation + loading/success feedback (no backend — replace with real integration)
+  const form = document.getElementById('bookingForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const submitLabel = document.getElementById('submitLabel');
+  const submitSpinner = document.getElementById('submitSpinner');
+  const formStatus = document.getElementById('formStatus');
+
+  function validateField(field) {
+    const errorEl = field.closest('div').querySelector('.field-error');
+    if (!errorEl) return true;
+    if (!field.checkValidity()) {
+      errorEl.textContent = field.validity.valueMissing ? 'שדה חובה — נא למלא' : 'ערך לא תקין, נא לבדוק שוב';
+      errorEl.classList.remove('hidden');
+      field.classList.add('border-red-400');
+      return false;
+    }
+    errorEl.classList.add('hidden');
+    field.classList.remove('border-red-400');
+    return true;
+  }
+
+  form.querySelectorAll('#fullName, #phone, #service, #date').forEach(field => {
+    field.addEventListener('blur', () => validateField(field));
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const requiredFields = form.querySelectorAll('#fullName, #phone, #service, #date');
+    let valid = true;
+    requiredFields.forEach(f => { if (!validateField(f)) valid = false; });
+    if (!valid) {
+      formStatus.textContent = 'נא לתקן את השדות המסומנים לפני השליחה.';
+      formStatus.classList.add('text-red-400');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitLabel.textContent = 'שולח בקשה…';
+    submitSpinner.classList.remove('hidden');
+    formStatus.classList.remove('text-red-400');
+    formStatus.textContent = '';
+
+    // Simulated network call — wire this endpoint up to your real booking system.
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitSpinner.classList.add('hidden');
+      submitLabel.textContent = 'שליחת בקשה לתור';
+      formStatus.textContent = '✓ הבקשה נשלחה בהצלחה! ניצור איתכם קשר לאישור בקרוב.';
+      formStatus.classList.add('text-gold-light');
+      form.reset();
+    }, 1200);
+  });
+</script>
+
+</body>
+</html>
