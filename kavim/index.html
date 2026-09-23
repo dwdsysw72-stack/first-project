@@ -106,9 +106,10 @@
   /* ---------- hero ---------- */
   .hero{padding-block:clamp(48px,8vw,96px) clamp(40px,6vw,72px)}
   .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(32px,5vw,64px); align-items:center}
+  .hero-grid > *{min-width:0}
   .hero h1{
     font-family:var(--display); font-weight:700;
-    font-size:clamp(3.4rem,8.4vw,6.6rem); line-height:.92; letter-spacing:-.005em;
+    font-size:clamp(3.2rem,6.6vw,5.8rem); line-height:.92; letter-spacing:-.005em;
     margin-block:18px 22px;
   }
   .hero h1 em{font-style:normal; color:var(--accent); position:relative; white-space:nowrap}
@@ -134,7 +135,7 @@
   .frame-bar{display:flex; align-items:center; gap:6px; padding:10px 12px; border-bottom:1px solid var(--line); direction:ltr}
   .frame-bar i{width:9px; height:9px; border-radius:50%; background:var(--line)}
   .frame-bar .url{margin-inline-start:10px; flex:1; font-family:var(--mono); font-size:.7rem; color:var(--muted);
-    background:var(--ground); border-radius:6px; padding:4px 10px}
+    background:var(--ground); border-radius:6px; padding:4px 10px; white-space:nowrap; overflow:hidden}
   .frame-body{padding:18px; display:grid; gap:12px}
   .wf{border:1.5px dashed color-mix(in srgb,var(--accent) 45%,transparent); border-radius:6px; background:var(--accent-soft)}
   .wf-nav{height:14px; border:none; background:none; display:flex; justify-content:space-between; gap:8px}
@@ -148,10 +149,50 @@
   .wf-cols{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
   .wf-cols div{height:58px}
   .wf-line{height:6px; border:none; background:var(--line); border-radius:3px}
-  .draw .wf{animation:draw .7s ease both}
-  .draw .wf:nth-child(2){animation-delay:.15s} .draw .wf:nth-child(3){animation-delay:.3s}
-  .draw .wf:nth-child(4){animation-delay:.45s}
-  @keyframes draw{from{clip-path:inset(0 0 0 100%)} to{clip-path:inset(0 0 0 0)}}
+  /* the wireframe "builds itself" on an 8s loop: blocks draw in, a cursor clicks the CTA, repeat */
+  .frame-body{position:relative}
+  .draw > *, .draw .wf-cols > .wf{animation:build 8s cubic-bezier(.6,.1,.2,1) infinite}
+  .draw > :nth-child(2){animation-delay:.25s}
+  .draw .wf-cols > .wf:nth-child(1){animation-delay:.5s}
+  .draw .wf-cols > .wf:nth-child(2){animation-delay:.65s}
+  .draw .wf-cols > .wf:nth-child(3){animation-delay:.8s}
+  .draw > .wf-cols{animation:none}
+  .draw > :nth-child(4){animation-delay:1s}
+  @keyframes build{
+    0%{clip-path:inset(0 0 0 100%); opacity:1}
+    9%,90%{clip-path:inset(0 0 0 0); opacity:1}
+    97%,100%{clip-path:inset(0 0 0 0); opacity:0}
+  }
+  .wf-hero b:nth-child(3){animation:press 8s ease infinite}
+  @keyframes press{
+    0%,52%{transform:scale(1); box-shadow:0 0 0 0 var(--accent-soft)}
+    55%{transform:scale(.9); box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}
+    62%{transform:scale(1); box-shadow:0 0 0 14px transparent}
+    100%{transform:scale(1)}
+  }
+  .cursor{position:absolute; width:20px; height:20px; top:0; left:0; pointer-events:none; z-index:2;
+    animation:cursor 8s cubic-bezier(.5,0,.2,1) infinite; filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+  .cursor path{fill:var(--ink); stroke:var(--paper); stroke-width:1.5}
+  @keyframes cursor{
+    0%,22%{transform:translate(40px,220px); opacity:0}
+    30%{opacity:1}
+    50%{transform:translate(var(--cx,260px),var(--cy,92px)); opacity:1}
+    54%{transform:translate(var(--cx,260px),var(--cy,92px)) scale(.85)}
+    58%{transform:translate(var(--cx,260px),var(--cy,92px)) scale(1)}
+    80%{transform:translate(var(--cx,260px),var(--cy,92px)); opacity:1}
+    90%,100%{transform:translate(calc(var(--cx,260px) + 40px),var(--cy,92px)); opacity:0}
+  }
+  .toast{position:absolute; inset-inline:18px; bottom:14px; z-index:1; display:flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--ground); font-size:.72rem; padding:7px 10px; border-radius:6px;
+    animation:toast 8s ease infinite}
+  .toast::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--ok); flex:none}
+  @keyframes toast{0%,58%{opacity:0; transform:translateY(8px)} 63%,88%{opacity:1; transform:none} 95%,100%{opacity:0}}
+  .url .caret{display:inline-block; width:1px; height:1em; background:var(--muted); vertical-align:-2px; margin-left:1px; animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .frame{transition:transform .4s ease}
+  .note{animation:bob 5s ease-in-out infinite}
+  .note-b{animation-delay:-2.5s}
+  @keyframes bob{50%{transform:translateY(-6px)}}
 
   .dim{position:absolute; color:var(--accent); font-family:var(--mono); font-size:.68rem; direction:ltr; display:flex; align-items:center; gap:6px}
   .dim-top{top:4px; left:28px; right:34px; justify-content:center}
@@ -278,6 +319,54 @@
 
   footer{border-top:1px solid var(--line); padding-block:28px; color:var(--muted); font-size:.9rem}
   footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px}
+
+  /* ---------- motion ---------- */
+  .hero h1 .ln{display:block; animation:rise .9s cubic-bezier(.2,.7,.1,1) both}
+  .hero h1 .ln:nth-child(2){animation-delay:.12s}
+  .hero .lead{animation:rise .9s .25s cubic-bezier(.2,.7,.1,1) both}
+  .hero-cta{animation:rise .9s .38s cubic-bezier(.2,.7,.1,1) both}
+  .hero h1 em::after{transform-origin:right; animation:underline .8s .7s cubic-bezier(.6,0,.2,1) both}
+  @keyframes rise{from{opacity:0; transform:translateY(28px)} to{opacity:1; transform:none}}
+  @keyframes underline{from{transform:scaleX(0)} to{transform:scaleX(1)}}
+
+  .brand-mark i{transition:width .35s cubic-bezier(.6,0,.2,1)}
+  .brand:hover .brand-mark i:nth-child(1){width:60%}
+  .brand:hover .brand-mark i:nth-child(2){width:100%}
+  .brand:hover .brand-mark i:nth-child(3){width:80%}
+
+  .marquee{overflow:hidden; border-block:1px solid var(--line); background:var(--ink); color:var(--ground); padding-block:14px}
+  .marquee-track{display:flex; width:max-content; animation:marquee 32s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-track span{font-family:var(--display); font-size:2rem; font-weight:700; line-height:1; white-space:nowrap; padding-inline:22px; display:flex; align-items:center; gap:44px}
+  .marquee-track span::after{content:""; width:28px; height:3px; border-radius:2px; background:var(--accent)}
+  @keyframes marquee{from{transform:translateX(0)} to{transform:translateX(50%)}}
+
+  .svc{transition:transform .35s cubic-bezier(.2,.7,.1,1), box-shadow .35s ease, border-color .35s ease}
+  .svc:hover{transform:translateY(-6px); box-shadow:0 22px 40px -24px rgba(18,24,38,.35)}
+  .svc li::before{transition:transform .3s ease}
+  .svc:hover li::before{transform:translateX(-4px)}
+  .why-item{transition:background-color .3s ease}
+  .why-item:hover .k{animation:nudge .5s ease}
+  @keyframes nudge{50%{transform:translateX(-6px)}}
+  .faq details[open] p{animation:rise .45s ease both}
+
+  /* scroll reveal: only elements below the fold at load are ever hidden (JS adds .pending) */
+  .pending{opacity:0; transform:translateY(26px)}
+  .revealed{transition:opacity .8s cubic-bezier(.2,.7,.1,1) var(--d,0s), transform .8s cubic-bezier(.2,.7,.1,1) var(--d,0s)}
+
+  /* process line draws across, step by step */
+  .process.arm li::before{border-bottom-color:var(--line); color:var(--muted); transition:border-color .5s ease, color .5s ease}
+  .process.arm.in li::before{border-bottom-color:var(--accent); color:var(--accent)}
+  .process.arm.in li:nth-child(2)::before{transition-delay:.3s}
+  .process.arm.in li:nth-child(3)::before{transition-delay:.6s}
+  .process.arm.in li:nth-child(4)::before{transition-delay:.9s}
+  .process.arm.in li:nth-child(5)::before{transition-delay:1.2s}
+
+  @media (prefers-reduced-motion: reduce){
+    .pending{opacity:1; transform:none}
+    .cursor,.toast{display:none}
+    .marquee-track{flex-wrap:wrap; width:auto}
+  }
 </style>
 </head>
 <body>
@@ -307,7 +396,7 @@
     <div class="wrap hero-grid">
       <div>
         <span class="label">סטודיו לבניית אתרים</span>
-        <h1>אתר שלא רק נראה טוב.<br>אתר <em>שמביא לקוחות.</em></h1>
+        <h1><span class="ln">אתר שלא רק נראה טוב.</span><span class="ln">אתר <em>שמביא לקוחות.</em></span></h1>
         <p class="lead">בקווים אנחנו מתכננים, מעצבים ובונים אתרים לעסקים — מהירים, מותאמים לנייד ומוכנים לגוגל. כל קו בעמוד נמצא שם מסיבה אחת: להפוך מבקר לפנייה.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#contact">בואו נדבר על האתר שלכם</a>
@@ -324,12 +413,14 @@
         <div class="dim dim-top">1440px · 12 col grid</div>
         <div class="dim dim-side">above the fold</div>
         <div class="frame">
-          <div class="frame-bar"><i></i><i></i><i></i><span class="url">https://your-business.co.il</span></div>
+          <div class="frame-bar"><i></i><i></i><i></i><span class="url">https://<span id="url-typed">your-business.co.il</span><span class="caret"></span></span></div>
           <div class="frame-body draw">
             <div class="wf wf-nav"><b></b><span><b></b><b></b><b></b></span></div>
             <div class="wf wf-hero"><b></b><b></b><b></b></div>
             <div class="wf-cols"><div class="wf"></div><div class="wf"></div><div class="wf"></div></div>
             <div class="wf-line"></div>
+            <svg class="cursor" id="cursor" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 2l13 7.5-6 1.2-2.6 5.8z"/></svg>
+            <div class="toast">פנייה חדשה התקבלה</div>
           </div>
         </div>
         <div class="note note-a">Lighthouse <b>98</b> · LCP <b>1.1s</b></div>
@@ -337,6 +428,14 @@
       </div>
     </div>
   </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>דפי נחיתה</span><span>אתרי תדמית</span><span>חנויות אונליין</span><span>קידום בגוגל</span><span>מהירות טעינה</span><span>מותאם לנייד</span><span>עיצוב מקורי</span>
+      <span>דפי נחיתה</span><span>אתרי תדמית</span><span>חנויות אונליין</span><span>קידום בגוגל</span><span>מהירות טעינה</span><span>מותאם לנייד</span><span>עיצוב מקורי</span>
+    </div>
+  </div>
 
   <!-- PROMISES -->
   <div class="wrap">
@@ -607,6 +706,82 @@
       else select();
     });
   });
+
+  // ---------- motion ----------
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // point the hero cursor at the wireframe's CTA button
+  const frameBody = document.querySelector('.frame-body');
+  const cta = document.querySelector('.wf-hero b:nth-child(3)');
+  const aimCursor = () => {
+    const f = frameBody.getBoundingClientRect(), c = cta.getBoundingClientRect();
+    frameBody.style.setProperty('--cx', (c.left - f.left + c.width / 2 - 3) + 'px');
+    frameBody.style.setProperty('--cy', (c.top - f.top + c.height / 2 - 2) + 'px');
+  };
+  aimCursor(); addEventListener('resize', aimCursor);
+
+  if (!calm) {
+    // type a new client domain into the address bar every loop of the wireframe
+    const domains = ['your-business.co.il', 'pilates-tlv.co.il', 'cafe-noa.co.il', 'dr-levi-clinic.co.il', 'studio-shir.co.il'];
+    const typed = document.getElementById('url-typed');
+    let di = 0;
+    const typeNext = () => {
+      const word = domains[di++ % domains.length];
+      let i = 0;
+      typed.textContent = '';
+      const tick = setInterval(() => { typed.textContent = word.slice(0, ++i); if (i >= word.length) clearInterval(tick); }, 55);
+    };
+    typeNext(); setInterval(typeNext, 8000);
+
+    // gentle 3D tilt of the mockup under the pointer
+    const frame = document.querySelector('.frame');
+    const bp = document.querySelector('.blueprint');
+    if (matchMedia('(hover: hover)').matches) {
+      bp.addEventListener('pointermove', (e) => {
+        const r = bp.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        frame.style.transform = `perspective(900px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+      });
+      bp.addEventListener('pointerleave', () => { frame.style.transform = ''; });
+    }
+
+    // scroll reveal — only for things not yet on screen
+    const targets = document.querySelectorAll('.sec-head, .why-item, .compare, .svc, .faq details, .contact-side, form.brief, .promise');
+    const below = (el) => el.getBoundingClientRect().top > innerHeight * .92;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('revealed');
+        requestAnimationFrame(() => en.target.classList.remove('pending'));
+        if (en.target.classList.contains('promise')) countUp(en.target.querySelector('strong'));
+        if (en.target.classList.contains('process')) en.target.classList.add('in');
+        io.unobserve(en.target);
+      });
+    }, { threshold: .15 });
+    targets.forEach((el) => {
+      if (!below(el)) return;
+      const sibs = [...el.parentElement.children].filter((s) => s.matches('.why-item, .svc, details, .promise'));
+      const idx = sibs.indexOf(el);
+      if (idx > 0) el.style.setProperty('--d', (idx % 3) * .1 + 's');
+      el.classList.add('pending');
+      io.observe(el);
+    });
+    const proc = document.querySelector('.process');
+    if (below(proc)) { proc.classList.add('arm'); io.observe(proc); }
+
+    // count the promise numbers up from zero
+    function countUp(el) {
+      const m = el.textContent.match(/^(\D*)(\d+)(\D*)$/);
+      if (!m) return;
+      const [, pre, num, post] = m, end = +num, t0 = performance.now();
+      const step = (t) => {
+        const p = Math.min(1, (t - t0) / 1200), v = Math.round(end * (1 - Math.pow(1 - p, 3)));
+        el.textContent = pre + v + post;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+  }
 </script>
 </body>
 </html>
