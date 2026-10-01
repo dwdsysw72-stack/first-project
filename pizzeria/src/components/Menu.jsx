@@ -1,0 +1,81 @@
+import { useLayoutEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import Photo from './Photo.jsx';
+import { revealProps } from './motion.js';
+
+const PIZZAS = [
+  { name: 'מרגריטה', price: 54, desc: 'עגבניות סן מרצנו, פיור די לאטה, בזיליקום ושמן זית.', tag: 'הכי נמכרת', photo: '1574071318508-1cdbab80d002', alt: 'פיצה מרגריטה' },
+  { name: 'פפרוני חריף', price: 68, desc: "סלמי פיקנטי, מוצרלה ודבש צ'ילי שאנחנו מכינים לבד.", tag: 'חריף', photo: '1628840042765-356cda07504e', alt: 'פיצה פפרוני' },
+  { name: 'ביאנקה פטריות', price: 64, desc: 'בסיס שמנת, פטריות יער, טימין ופרמזן מגורר.', photo: '1565299624946-b28f40a0ae38', alt: 'פיצה עם ירקות' },
+  { name: 'ירוקה', price: 62, desc: 'פסטו בזיליקום, קישואים, ריקוטה וגרידת לימון.', tag: 'צמחונית', photo: '1593560708920-61dd98c46a4e', alt: 'פיצה ירוקה' },
+  { name: 'ארבע גבינות', price: 66, desc: 'מוצרלה, גורגונזולה, פרמזן ופקורינו, עם פלפל שחור גרוס.', photo: '1604382354936-07c5d9983bd3', alt: 'פיצה ארבע גבינות' },
+  { name: 'מרינרה', price: 46, desc: 'עגבניות, שום פרוס, אורגנו ושמן זית. בלי גבינה.', tag: 'טבעונית', photo: '1590947132387-155cc02f3212', alt: 'פיצה מרינרה' },
+];
+
+const DESKTOP = '(min-width: 1024px)';
+
+// On desktop the section pins and vertical scroll pans the menu sideways, like walking
+// past the counter. On mobile (or with reduced motion) it's a native swipeable row.
+export default function Menu() {
+  const sectionRef = useRef(null);
+  const trackRef = useRef(null);
+  const reduce = useReducedMotion();
+  const [distance, setDistance] = useState(0);
+
+  useLayoutEffect(() => {
+    if (reduce) { setDistance(0); return; }
+    const mq = window.matchMedia(DESKTOP);
+    const measure = () => {
+      const track = trackRef.current;
+      setDistance(mq.matches ? Math.max(0, track.scrollWidth - window.innerWidth) : 0);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(trackRef.current);
+    mq.addEventListener('change', measure);
+    window.addEventListener('resize', measure);
+    return () => { ro.disconnect(); mq.removeEventListener('change', measure); window.removeEventListener('resize', measure); };
+  }, [reduce]);
+
+  const panning = distance > 0;
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] });
+  // RTL: extra cards overflow to the left, so the track moves right (positive x).
+  const x = useTransform(scrollYProgress, [0, 1], [0, distance]);
+
+  return (
+    <section
+      ref={sectionRef}
+      className={`section menu-section${panning ? ' is-panning' : ''}`}
+      id="menu"
+      aria-labelledby="menuTitle"
+      style={panning ? { height: `calc(100dvh + ${distance}px)` } : undefined}
+    >
+      <div className="menu-pin">
+        <div className="wrap menu-head">
+          <motion.h2 className="section-title" id="menuTitle" {...revealProps()}>התפריט</motion.h2>
+          <motion.p className="section-lead" {...revealProps(0.08)}>
+            שש פיצות, בלי קיצורי דרך. כל פיצה בקוטר 30 ס"מ, יוצאת ישר מהתנור.
+          </motion.p>
+        </div>
+        <div className="menu-viewport">
+          <motion.ul className="menu-track" ref={trackRef} style={{ x: panning ? x : 0 }}>
+            {PIZZAS.map((p, i) => (
+              <motion.li key={p.name} className="pizza-card" {...revealProps(Math.min(i, 3) * 0.06)}>
+                <Photo id={p.photo} w={760} h={570} alt={p.alt} />
+                <div className="pizza-body">
+                  <div className="pizza-top">
+                    <h3 className="pizza-name">{p.name}</h3>
+                    <span className="pizza-price">₪{p.price}</span>
+                  </div>
+                  <p className="pizza-desc">{p.desc}</p>
+                  {p.tag && <span className="chip">{p.tag}</span>}
+                </div>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </div>
+        <p className="wrap menu-hint">החליקו הצידה לעוד פיצות</p>
+      </div>
+    </section>
+  );
+}
