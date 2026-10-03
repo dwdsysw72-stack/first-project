@@ -19,15 +19,15 @@ export default function Hero() {
       <div className="wrap hero-grid">
         <motion.div className="hero-copy" variants={container} initial="hidden" animate="show">
           <h1 className="hero-title">
-            <span className="line"><motion.span variants={rise}>פיצה מתנור עצים,</motion.span></span>
-            <span className="line"><motion.span variants={rise}>מוכנה תוך <em>90 שניות.</em></motion.span></span>
+            <span className="line"><motion.span variants={rise}>Wood-fired pizza,</motion.span></span>
+            <span className="line"><motion.span variants={rise}>ready in <em>90 seconds.</em></motion.span></span>
           </h1>
           <motion.p className="hero-sub" variants={rise}>
-            בצק שמתפח 48 שעות, עגבניות סן מרצנו ומוצרלה טרייה. אוכלים אצלנו או מקבלים חם הביתה.
+            Dough that rises for 48 hours, San Marzano tomatoes and fresh mozzarella. Grab a table or get it delivered hot to your door.
           </motion.p>
           <motion.div className="hero-ctas" variants={rise}>
-            <motion.a className="btn btn-primary" href="#visit" whileTap={tap}>להזמנה</motion.a>
-            <motion.a className="btn btn-ghost" href="#menu" whileTap={tap}>לתפריט</motion.a>
+            <motion.a className="btn btn-primary" href="#visit" whileTap={tap}>Order Now</motion.a>
+            <motion.a className="btn btn-ghost" href="#menu" whileTap={tap}>See the Menu</motion.a>
           </motion.div>
         </motion.div>
 
@@ -39,7 +39,7 @@ export default function Hero() {
         >
           <div className="hero-plate" />
           <motion.div className="hero-pizza" style={{ rotate }}>
-            <Photo id="1513104890138-7c749659a591" w={1100} h={1100} alt="פיצה מרגריטה טרייה מלמעלה" className="photo" priority />
+            <Photo id="1513104890138-7c749659a591" w={1100} h={1100} alt="Fresh Margherita pizza from above" className="photo" priority />
           </motion.div>
           <motion.p
             className="hero-badge"
@@ -48,7 +48,7 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.7 }}
           >
             <Icon name="fire" />
-            <span>תנור עצים, 450 מעלות</span>
+            <span>Wood-fired at 850°F</span>
           </motion.p>
         </motion.div>
       </div>

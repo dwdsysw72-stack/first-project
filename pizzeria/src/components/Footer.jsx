@@ -8,13 +8,13 @@ export default function Footer() {
       <div className="wrap footer-row">
         <a className="brand" href="#top">
           <BrandMark />
-          <span className="brand-name">תנור</span>
+          <span className="brand-name">Tanur</span>
         </a>
-        <nav aria-label="ניווט תחתון">
+        <nav aria-label="Footer">
           {NAV_ITEMS.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </nav>
-        <a className="social" href="#" aria-label="תנור באינסטגרם"><Icon name="instagram-logo" /></a>
-        <p>© {new Date().getFullYear()} תנור פיצרייה</p>
+        <a className="social" href="#" aria-label="Tanur on Instagram"><Icon name="instagram-logo" /></a>
+        <p>© {new Date().getFullYear()} Tanur Pizza Co.</p>
       </div>
     </footer>
   );

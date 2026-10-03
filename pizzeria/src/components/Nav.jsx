@@ -5,10 +5,10 @@ import BrandMark from './BrandMark.jsx';
 import { EASE_OUT, tap } from './motion.js';
 
 export const NAV_ITEMS = [
-  { href: '#menu', label: 'תפריט' },
-  { href: '#oven', label: 'התנור' },
-  { href: '#reviews', label: 'ביקורות' },
-  { href: '#visit', label: 'ביקור ומשלוח' },
+  { href: '#menu', label: 'Menu' },
+  { href: '#oven', label: 'The Oven' },
+  { href: '#reviews', label: 'Reviews' },
+  { href: '#visit', label: 'Visit & Delivery' },
 ];
 
 export default function Nav() {
@@ -21,21 +21,21 @@ export default function Nav() {
   return (
     <header className={`nav${stuck ? ' is-stuck' : ''}`}>
       <div className="wrap nav-row">
-        <a className="brand" href="#top" aria-label="תנור, לראש העמוד">
+        <a className="brand" href="#top" aria-label="Tanur, back to top">
           <BrandMark />
-          <span className="brand-name">תנור</span>
+          <span className="brand-name">Tanur</span>
         </a>
-        <nav className="nav-links" aria-label="ניווט ראשי">
+        <nav className="nav-links" aria-label="Main">
           {NAV_ITEMS.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </nav>
         <div className="nav-end">
-          <motion.a className="btn btn-primary" href="#visit" whileTap={tap}>להזמנה</motion.a>
+          <motion.a className="btn btn-primary" href="#visit" whileTap={tap}>Order Now</motion.a>
           <button
             className="menu-btn"
             type="button"
             aria-expanded={open}
             aria-controls="mobileMenu"
-            aria-label="תפריט ניווט"
+            aria-label="Navigation menu"
             onClick={() => setOpen((o) => !o)}
           >
             <Icon name={open ? 'x' : 'list'} />

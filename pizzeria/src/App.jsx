@@ -12,7 +12,7 @@ export default function App() {
   return (
     // reducedMotion="user": visitors with prefers-reduced-motion get fades only, no movement.
     <MotionConfig reducedMotion="user">
-      <a className="skip" href="#main">דלגו לתוכן</a>
+      <a className="skip" href="#main">Skip to content</a>
       <Nav />
       <main id="main">
         <Hero />

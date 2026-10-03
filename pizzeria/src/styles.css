@@ -18,8 +18,8 @@
   --accent-text: #B91C1C;
   --shadow: 0 18px 40px -22px rgba(127, 29, 29, 0.45);
 
-  --font-display: "Karantina", "Noto Sans Hebrew", system-ui, sans-serif;
-  --font-body: "Noto Sans Hebrew", system-ui, sans-serif;
+  --font-display: "Karantina", "DM Sans", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
 
   --radius: 20px;
   --pill: 999px;
@@ -282,7 +282,7 @@ ul { padding: 0; list-style: none; }
 .info-row h3 { font: 700 1.6rem/1.1 var(--font-display); }
 .info-row p, .hours { color: var(--muted); }
 .hours { display: grid; grid-template-columns: auto auto; gap: 2px 20px; justify-content: start; }
-.hours dd { font-variant-numeric: tabular-nums; direction: ltr; text-align: end; }
+.hours dd { font-variant-numeric: tabular-nums; text-align: end; }
 
 @media (min-width: 900px) {
   .visit-grid { grid-template-columns: 1.1fr 1fr; align-items: start; }

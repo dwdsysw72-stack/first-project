@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import Icon from './Icon.jsx';
 
-const WORDS = ['בצק מחמצת', 'עגבניות סן מרצנו', 'פיור די לאטה', 'בזיליקום טרי', 'שמן זית כתית', 'עצי אלון'];
+const WORDS = ['Sourdough Crust', 'San Marzano Tomatoes', 'Fior di Latte', 'Fresh Basil', 'Extra Virgin Olive Oil', 'Oak Wood Fire'];
 
 function Group({ hidden }) {
   return (
@@ -20,11 +20,11 @@ function Group({ hidden }) {
 export default function Marquee() {
   const reduce = useReducedMotion();
   return (
-    <div className="marquee" aria-label="המרכיבים שלנו">
+    <div className="marquee" aria-label="Our ingredients">
       <motion.div
         className="marquee-track"
         style={{ animation: 'none' }}
-        animate={reduce ? undefined : { x: ['0%', '50%'] }}
+        animate={reduce ? undefined : { x: ['0%', '-50%'] }}
         transition={{ duration: 32, ease: 'linear', repeat: Infinity }}
       >
         <Group />
