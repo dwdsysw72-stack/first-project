@@ -1,0 +1,278 @@
+<!--
+  ORBIT — Motion Studio landing page (MotionSites style)
+  A fictional demo brand. Before using for real, replace:
+    - Brand name / logo ("ORBIT")
+    - Email (hello@orbit.studio) and social links
+    - Project names, numbers and testimonials (sample content)
+  Libraries are vendored in ./vendor (GSAP + ScrollTrigger, Lenis, Three.js) — no CDN needed.
+-->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORBIT | סטודיו לחוויות דיגיטליות בתנועה</title>
+<meta name="description" content="ORBIT — סטודיו לאתרים קולנועיים, 3D ומיתוג בתנועה. אנחנו הופכים מותגים לחוויות שזזות.">
+<meta name="theme-color" content="#07070a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%2307070a'/%3E%3Ccircle cx='50' cy='50' r='22' fill='none' stroke='%23c8ff3d' stroke-width='8'/%3E%3Ccircle cx='76' cy='30' r='8' fill='%23c8ff3d'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600&family=Rubik:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Preloader (auto-hides via CSS if JS fails) -->
+<div class="loader" aria-hidden="true">
+  <div class="loader__brand">ORBIT<span>●</span></div>
+  <div class="loader__count"><span class="loader__num">0</span>%</div>
+  <div class="loader__bar"><span></span></div>
+</div>
+
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
+<a class="skip" href="#main">דלגו לתוכן</a>
+
+<header class="nav" id="nav">
+  <a href="#top" class="nav__logo" aria-label="ORBIT — לראש העמוד">ORBIT<span class="dot">●</span></a>
+  <nav aria-label="ניווט ראשי">
+    <ul class="nav__links">
+      <li><a href="#work">עבודות</a></li>
+      <li><a href="#services">שירותים</a></li>
+      <li><a href="#process">תהליך</a></li>
+      <li><a href="#contact">צור קשר</a></li>
+    </ul>
+  </nav>
+  <a href="#contact" class="btn btn--small btn--accent magnetic">בואו נדבר</a>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero__fallback" aria-hidden="true"></div>
+    <canvas class="hero__gl" id="gl" aria-hidden="true"></canvas>
+    <div class="hero__vignette" aria-hidden="true"></div>
+
+    <div class="hero__content container">
+      <p class="eyebrow hero__eyebrow"><span class="pulse"></span>סטודיו לחוויות דיגיטליות · תל אביב</p>
+      <h1 class="hero__title">
+        <span class="line"><span class="line__inner">אנחנו מזיזים</span></span>
+        <span class="line"><span class="line__inner">אנשים <em class="serif">with</em></span></span>
+        <span class="line"><span class="line__inner"><span class="accent-text">פיקסלים.</span></span></span>
+      </h1>
+      <div class="hero__bottom">
+        <p class="hero__sub">אתרים קולנועיים, עולמות תלת־ממד ומיתוג בתנועה — למותגים שלא מוכנים להיות סטטיים.</p>
+        <div class="hero__ctas">
+          <a href="#contact" class="btn btn--accent magnetic"><span>התחילו פרויקט</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+          <a href="#work" class="btn btn--ghost"><span>צפו בעבודות</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__meta container" aria-hidden="true">
+      <span>EST. 2019</span>
+      <span class="scroll-hint"><i></i>גללו</span>
+      <span>32.0853° N · 34.7818° E</span>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <section class="marquee" aria-label="תחומי התמחות">
+    <div class="marquee__row" data-dir="1">
+      <div class="marquee__track">
+        <div class="marquee__group"><span>אתרים קולנועיים</span><b>✦</b><span class="serif">Motion</span><b>✦</b><span>תלת־ממד</span><b>✦</b><span class="serif">WebGL</span><b>✦</b><span>מיתוג חי</span><b>✦</b><span class="serif">Interaction</span><b>✦</b></div>
+        <div class="marquee__group" aria-hidden="true"><span>אתרים קולנועיים</span><b>✦</b><span class="serif">Motion</span><b>✦</b><span>תלת־ממד</span><b>✦</b><span class="serif">WebGL</span><b>✦</b><span>מיתוג חי</span><b>✦</b><span class="serif">Interaction</span><b>✦</b></div>
+      </div>
+    </div>
+    <div class="marquee__row marquee__row--outline" data-dir="-1" aria-hidden="true">
+      <div class="marquee__track">
+        <div class="marquee__group"><span>מוצרים</span><b>●</b><span>חוויות</span><b>●</b><span>סיפורים</span><b>●</b><span>תנועה</span><b>●</b><span>עומק</span><b>●</b><span>אור</span><b>●</b></div>
+        <div class="marquee__group"><span>מוצרים</span><b>●</b><span>חוויות</span><b>●</b><span>סיפורים</span><b>●</b><span>תנועה</span><b>●</b><span>עומק</span><b>●</b><span>אור</span><b>●</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STATEMENT + STATS ============ -->
+  <section class="intro container">
+    <p class="eyebrow" data-reveal>(01) — מי אנחנו</p>
+    <p class="statement">אנחנו צוות קטן של מעצבים, מפתחים ואנימטורים שמאמין שאתר טוב לא רק נראה — הוא <em class="serif">מרגיש</em>. כל גלילה היא סצנה, כל מעבר הוא רגע, וכל פיקסל עובד בשביל הסיפור שלכם.</p>
+
+    <ul class="stats" data-stagger>
+      <li><strong><span class="count" data-count="120">120</span>+</strong><span>פרויקטים שהושקו</span></li>
+      <li><strong><span class="count" data-count="38">38</span></strong><span>פרסים בינלאומיים</span></li>
+      <li><strong><span class="count" data-count="14">14</span></strong><span>מדינות</span></li>
+      <li><strong><span class="count" data-count="97">97</span>%</strong><span>לקוחות שחוזרים</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ SERVICES (BENTO) ============ -->
+  <section class="services container" id="services">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal>(02) — שירותים</p>
+      <h2 class="h2" data-reveal>מה אנחנו <em class="serif">עושים</em> הכי טוב</h2>
+    </div>
+
+    <div class="bento" data-stagger>
+      <article class="card card--wide spot">
+        <div class="viz viz--browser" aria-hidden="true">
+          <div class="viz__bar"><i></i><i></i><i></i></div>
+          <div class="viz__screen"><span class="viz__title">Cinematic</span><span class="viz__scan"></span></div>
+        </div>
+        <div class="card__body">
+          <span class="card__num">01</span>
+          <h3>אתרים קולנועיים</h3>
+          <p>דפי נחיתה ואתרי מותג עם Hero מרהיב, אנימציות גלילה וטיפוגרפיה שנושמת.</p>
+        </div>
+      </article>
+
+      <article class="card spot">
+        <div class="viz viz--cube" aria-hidden="true">
+          <div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="card__body">
+          <span class="card__num">02</span>
+          <h3>3D ו־WebGL</h3>
+          <p>אובייקטים אינטראקטיביים ושיידרים שרצים חלק בדפדפן.</p>
+        </div>
+      </article>
+
+      <article class="card spot">
+        <div class="viz viz--blob" aria-hidden="true"><span></span></div>
+        <div class="card__body">
+          <span class="card__num">03</span>
+          <h3>מיתוג בתנועה</h3>
+          <p>לוגו, טיפוגרפיה ושפה ויזואלית שנבנו כדי לזוז.</p>
+        </div>
+      </article>
+
+      <article class="card spot">
+        <div class="viz viz--bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="card__body">
+          <span class="card__num">04</span>
+          <h3>מוצרים דיגיטליים</h3>
+          <p>אפליקציות ודשבורדים עם מיקרו־אינטראקציות שמרגישות נכון.</p>
+        </div>
+      </article>
+
+      <article class="card spot">
+        <div class="viz viz--orbit" aria-hidden="true"><span></span><span></span><span></span><b></b></div>
+        <div class="card__body">
+          <span class="card__num">05</span>
+          <h3>Motion &amp; Video</h3>
+          <p>סרטוני מוצר, לופים ל־Hero ותוכן לרשתות.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ WORK (PINNED HORIZONTAL) ============ -->
+  <section class="work" id="work">
+    <div class="work__head container">
+      <p class="eyebrow" data-reveal>(03) — עבודות נבחרות</p>
+      <h2 class="h2" data-reveal>פרויקטים שזזים <em class="serif">differently</em></h2>
+    </div>
+    <div class="work__viewport">
+      <div class="work__track">
+        <article class="project">
+          <div class="project__art art-1"><span class="project__word">Nebula</span><i class="orb"></i></div>
+          <div class="project__info"><h3>Nebula</h3><span>פינטק · אתר + אפליקציה</span><span>2026</span></div>
+        </article>
+        <article class="project">
+          <div class="project__art art-2"><span class="project__word">Kōyō</span><i class="orb"></i></div>
+          <div class="project__info"><h3>Kōyō Tea</h3><span>מיתוג · חנות אונליין</span><span>2025</span></div>
+        </article>
+        <article class="project">
+          <div class="project__art art-3"><span class="project__word">Volt</span><i class="orb"></i></div>
+          <div class="project__info"><h3>Volt Motors</h3><span>קונפיגורטור 3D</span><span>2025</span></div>
+        </article>
+        <article class="project">
+          <div class="project__art art-4"><span class="project__word">Atlas</span><i class="orb"></i></div>
+          <div class="project__info"><h3>Atlas Museum</h3><span>תערוכה דיגיטלית</span><span>2024</span></div>
+        </article>
+        <article class="project">
+          <div class="project__art art-5"><span class="project__word">Sonar</span><i class="orb"></i></div>
+          <div class="project__info"><h3>Sonar Records</h3><span>לייבל · חוויית אודיו</span><span>2024</span></div>
+        </article>
+        <a href="#contact" class="project project--cta">
+          <span>הפרויקט הבא<br>יכול להיות <em class="serif">שלכם</em></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section class="process container" id="process">
+    <div class="process__side">
+      <p class="eyebrow" data-reveal>(04) — תהליך</p>
+      <h2 class="h2" data-reveal>מרעיון<br>ל<em class="serif">תנועה</em><br>בארבעה צעדים</h2>
+    </div>
+    <ol class="steps">
+      <li class="step"><span class="step__n">01</span><div><h3>גילוי</h3><p>מבינים את המותג, הקהל והמטרה. מגדירים מה המבקר צריך להרגיש ומה הוא צריך לעשות.</p></div></li>
+      <li class="step"><span class="step__n">02</span><div><h3>קונספט</h3><p>Moodboards, סטוריבורד של הגלילה ופרוטוטייפ תנועה ראשון — לפני שורת קוד אחת.</p></div></li>
+      <li class="step"><span class="step__n">03</span><div><h3>יצירה</h3><p>עיצוב, 3D ופיתוח במקביל. כל אנימציה נבדקת ב־60fps, גם במובייל.</p></div></li>
+      <li class="step"><span class="step__n">04</span><div><h3>השקה</h3><p>אופטימיזציה, נגישות ומדידה. ואז — ממשיכים לשפר יחד.</p></div></li>
+      <span class="steps__line" aria-hidden="true"><i></i></span>
+    </ol>
+  </section>
+
+  <!-- ============ TESTIMONIALS (sample content — replace) ============ -->
+  <section class="quotes container">
+    <p class="eyebrow" data-reveal>(05) — מה אומרים</p>
+    <div class="quotes__grid" data-stagger>
+      <figure class="quote spot">
+        <blockquote>„האתר החדש הכפיל את זמן השהייה באתר תוך חודש. אנשים פשוט נשארים לגלול.”</blockquote>
+        <figcaption><span class="avatar">מל</span><span><b>מאיה לוי</b>סמנכ״לית שיווק, Nebula</span></figcaption>
+      </figure>
+      <figure class="quote spot">
+        <blockquote>„הם הבינו את המותג שלנו טוב יותר מאיתנו — ונתנו לו תנועה שלא ידענו שחסרה.”</blockquote>
+        <figcaption><span class="avatar">יכ</span><span><b>יונתן כהן</b>מייסד, Kōyō Tea</span></figcaption>
+      </figure>
+      <figure class="quote spot">
+        <blockquote>„קונפיגורטור ה־3D רץ חלק גם על טלפון ישן. זה הרגיש כמו קסם.”</blockquote>
+        <figcaption><span class="avatar">נא</span><span><b>נועה אברהם</b>מנהלת מוצר, Volt</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta" id="contact">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="container cta__inner">
+      <p class="eyebrow" data-reveal>(06) — בואו נדבר</p>
+      <h2 class="cta__title">
+        <span class="line"><span class="line__inner">יש לכם רעיון?</span></span>
+        <span class="line"><span class="line__inner">בואו ניתן לו <em class="serif accent-text">תנועה.</em></span></span>
+      </h2>
+      <a href="mailto:hello@orbit.studio" class="cta__btn magnetic" aria-label="שלחו לנו מייל: hello@orbit.studio">
+        <span class="cta__btn-inner">דברו<br>איתנו</span>
+      </a>
+      <a href="mailto:hello@orbit.studio" class="cta__mail" dir="ltr">hello@orbit.studio</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__top">
+    <div><span class="footer__label">סטודיו</span>שדרות רוטשילד, תל אביב</div>
+    <div><span class="footer__label">עקבו</span>
+      <a href="#" aria-label="Instagram">Instagram</a> · <a href="#" aria-label="Behance">Behance</a> · <a href="#" aria-label="LinkedIn">LinkedIn</a>
+    </div>
+    <div><span class="footer__label">מייל</span><a href="mailto:hello@orbit.studio" dir="ltr">hello@orbit.studio</a></div>
+  </div>
+  <div class="wordmark" aria-hidden="true" dir="ltr"><span>O</span><span>R</span><span>B</span><span>I</span><span>T</span></div>
+  <div class="container footer__bottom">
+    <span>© 2026 ORBIT Studio</span>
+    <a href="#top" class="to-top">חזרה למעלה ↑</a>
+  </div>
+</footer>
+
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script src="vendor/lenis.min.js" defer></script>
+<script src="main.js" defer></script>
+<script type="module" src="gl.js"></script>
+</body>
+</html>
